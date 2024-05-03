@@ -13,3 +13,13 @@ class TestView(APIView):
         
         # You can also return a response if needed
         return Response({"message": "Data received successfully"}, status=status.HTTP_200_OK)
+
+
+# view to create a startup
+
+# view to get a startup
+
+# view to create an investor
+
+# view to get an investor
+
