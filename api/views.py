@@ -1,6 +1,44 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.contrib.auth.models import User
+from rest_framework import generics
+from .models import Startup
+from .serializers import UserSerializer, StartupSerializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
+
+class CreateUserView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]
+
+class StartupCreate(generics.ListCreateAPIView):
+    print("startup create")
+    serializer_class = StartupSerializer
+
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Startup.objects.filter(owner=user)
+
+    def perform_create(self, serializer):
+        print("Received Request Data:", self.request.data)
+        if serializer.is_valid():
+            print("Received Request Data:", self.request.data)
+            serializer.save(owner=self.request.user)
+        else:
+            print("Invalid data received: ", self.request.data)
+            print(serializer.errors)
+
+
+class StartupDelete(generics.DestroyAPIView):
+    serializer_class = StartupSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Startup.objects.filter(owner=user)
 
 # Create your views here.
 class TestView(APIView):
