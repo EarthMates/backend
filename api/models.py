@@ -20,6 +20,63 @@ class Startup(models.Model):
     owner = models.ForeignKey(User, related_name="startups", on_delete=models.CASCADE)
 
 
+# Coded by Ghela:
+# The constants below are used to create the dictionaries for the choises and in the 
+# form are seen like a widjet of options.
+class Investor(models.Model):
+
+    # Those are the choises for the field stage
+    PRE_SEED = "PS"
+    SERIES_A ='SA'
+    SERIES_B = 'SB'
+    SERIES_C = 'SC'
+    BRIDGE ='BG'
+    STAGE_CHOICES = {
+        PRE_SEED : "PS",
+        SERIES_A :'SA',
+        SERIES_B : 'SB',
+        SERIES_C : 'SC',
+        BRIDGE :'BG'
+    }
+    stage = models.CharField(
+        max_length=2,
+        choices=STAGE_CHOICES,
+    )
+    # Those are the choises for the field industry
+    FINANCE = 'FN'
+    AGRICULTURE = 'AG'
+    TECHNOLOGY = 'TE'
+    MOBILITY = 'MO'
+    INDUSTRY_CHOICES = {
+        FINANCE : 'FN',
+        AGRICULTURE : 'AG',
+        TECHNOLOGY : 'TE',
+        MOBILITY : 'MO'
+    }
+    industry = models.CharField(
+        max_length=2, 
+        choices=INDUSTRY_CHOICES
+    )
+    # Those are the choises for the field location
+    RWANDA = 'RW'
+    GHANA = 'GH'
+    NIGERIA = 'NG'
+    LOCATION_CHOICES = {
+        RWANDA : 'RW',
+        GHANA : 'GH',
+        NIGERIA : 'NG'
+    }
+    location = models.CharField(
+        max_length=2,
+        choices=LOCATION_CHOICES
+    )
+    name = models.CharField(max_length=255)
+    
+
+
+
+
+
 
 # Routines to check boundries of data:
 # - name none
