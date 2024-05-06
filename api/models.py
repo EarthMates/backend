@@ -19,8 +19,6 @@ class Startup(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, related_name="startups", on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.title
 
 
 # Routines to check boundries of data:
