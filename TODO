@@ -1,0 +1,10 @@
+TODO Ghela:
+
+CODICE:
+[] Investor model
+[] Investor ListCreateAPIView
+[] Check parametri di creazione startup
+[] Check parametri di creazione investor
+
+RICERCA:
+[] Report di database su scalabilità, usabilità, deplyment e sicurezza 
