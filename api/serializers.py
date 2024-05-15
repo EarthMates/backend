@@ -18,7 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
 class StartupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Startup
-        fields = ("id", "name", "stage", "industry", "capital", "impact", "sdg", "values", "expertise", "matching", "strategy", "created_at", "owner")
+        fields = ("id", "name", "stage", "industry", "capital", "impact", "sdg", "values", "expertise",'location' "matching", "strategy", "created_at", "owner")
 
         extra_kwargs = {"owner": {"read_only": True}}
 
