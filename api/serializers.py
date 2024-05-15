@@ -7,7 +7,7 @@ from .models import Investor
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", 'firts_name', 'last_name', 'email', "password")
+        fields = ("id",'username', 'firts_name', 'last_name', 'email', "password")
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
