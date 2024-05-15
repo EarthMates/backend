@@ -6,7 +6,6 @@ import random
 # Create your models here.
 
 class Startup(models.Model):
-    name = models.CharField(max_length=50)
         # Those are the choises for the field stage
     PRE_SEED = "PS"
     SERIES_A ='SA'
@@ -55,6 +54,7 @@ class Startup(models.Model):
         choices=LOCATION_CHOICES,
         default= RWANDA
     )
+    name = models.CharField(max_length=50)
     capital = models.DecimalField(max_digits=15,decimal_places=0)
     impact = models.DecimalField(max_digits=10, decimal_places=0)
     sdg = models.JSONField()
@@ -122,8 +122,15 @@ class Investor(models.Model):
     name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, related_name="investors", on_delete=models.CASCADE)
+    capital = models.DecimalField(max_digits=15,decimal_places=0)
+    impact = models.DecimalField(max_digits=10, decimal_places=0)
+    sdg = models.JSONField()
+    values = models.JSONField()
+    expertise = models.JSONField()
+    strategy = models.JSONField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(User, related_name="startups", on_delete=models.CASCADE)
 
-    
 
 
 

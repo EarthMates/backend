@@ -7,7 +7,7 @@ from .models import Investor
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "username", "password")
+        fields = ("id", "username", 'email',  "password")
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
@@ -25,7 +25,7 @@ class StartupSerializer(serializers.ModelSerializer):
 class InvestorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Investor 
-        fields = ('id', 'name', 'stage', 'industry', 'location','created_at')
+        fields = ('id', 'name', 'stage', 'industry','capital', 'impact', 'sdg', 'values', 'expertise', 'location','created_at','owner' )
         extra_kwargs = {"name": {"read_only": True}}
 
         #TODO: adding extra kwargs for security
