@@ -12,6 +12,10 @@ class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
+    def perform_create(self, serializer):
+        print("Received Request Data:", self.request.data)
+       
+
 class StartupCreate(generics.ListCreateAPIView):
     print("startup create")
     serializer_class = StartupSerializer
