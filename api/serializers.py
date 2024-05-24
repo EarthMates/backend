@@ -28,4 +28,4 @@ class InvestorSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'stage', 'industry','capital', 'impact', 'sdg', 'values', 'expertise', 'location','created_at','investor_owner' )
         extra_kwargs = {"name": {"read_only": True}}
 
-        #TODO: adding extra kwargs for security
+        #TODO: adding extra kwargs for security kubernetes software orchestrazione container insieme a docker google cloud platform aws o asure, collegamento linkedin google social-auth-app-django

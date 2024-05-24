@@ -1,6 +1,7 @@
 venv
 
 # Editor directories and files
+env
 db.sqlite3
 __pycache__
 .vscode/*
@@ -12,3 +13,4 @@ __pycache__
 *.njsproj
 *.sln
 *.sw?
+migrations
