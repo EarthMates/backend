@@ -2,6 +2,7 @@ venv
 
 # Editor directories and files
 env
+.env
 db.sqlite3
 __pycache__
 .vscode/*

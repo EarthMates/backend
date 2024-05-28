@@ -13,3 +13,7 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path("api/", include("api.urls")),
 ]
+
+# npm install 
+# npm run build 
+# npm run dev
