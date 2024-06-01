@@ -7,9 +7,10 @@ import random
 
 class Startup(models.Model):
     name = models.CharField(max_length=255)
-    stage = models.CharField(max_length=255)
+    stage = models.JSONField()
+    code = models.CharField(max_length=255, default="")
     industry = models.CharField(max_length=255)
-    capital = models.DecimalField(max_digits=15,decimal_places=0)
+    capital = models.CharField(max_length=255)
     impact = models.DecimalField(max_digits=10, decimal_places=0)
     sdg = models.JSONField()
     values = models.JSONField()
@@ -22,9 +23,9 @@ class Startup(models.Model):
 
 class Investor(models.Model):
     name = models.CharField(max_length=255)
-    stage = models.CharField(max_length=255)
+    stage = models.JSONField()
     industry = models.CharField(max_length=255)
-    capital = models.DecimalField(max_digits=15,decimal_places=0)
+    capital = models.CharField(max_length=255)
     impact = models.DecimalField(max_digits=10, decimal_places=0)
     sdg = models.JSONField()
     values = models.JSONField()
