@@ -18,7 +18,7 @@ RUN python manage.py makemigrations
 RUN python manage.py migrate
 
 # Expose port 8000 to the outside world
-EXPOSE 8000
+EXPOSE 80
 
 # Run manage.py when the container launches
 CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
