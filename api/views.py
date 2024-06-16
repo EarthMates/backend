@@ -1,11 +1,11 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from django.contrib.auth.models import User
 from rest_framework import generics
+from django.contrib.auth.models import User
 from .models import Startup, Investor
 from .serializers import UserSerializer, StartupSerializer, InvestorSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.conf import settings
+from django.core.mail import send_mail
+from django.http import HttpResponse
 
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -14,7 +14,6 @@ class CreateUserView(generics.CreateAPIView):
 
 class StartupCreate(generics.ListCreateAPIView):
     serializer_class = StartupSerializer
-
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
@@ -22,13 +21,17 @@ class StartupCreate(generics.ListCreateAPIView):
         return Startup.objects.filter(owner=user)
 
     def perform_create(self, serializer):
-        print("Received Request Data:", self.request.data)
-        if serializer.is_valid():
-            serializer.save(owner=self.request.user)
-        else:
-            print("Invalid data received: ", self.request.data)
-            print(serializer.errors)
-
+        startup = serializer.save(owner=self.request.user)
+        try:
+            send_mail(
+                'This is the title of the email',
+                'This is the message you want to send',
+                settings.DEFAULT_FROM_EMAIL,
+                [self.request.user.email],  # sending email to the user's email
+            )
+            print("Email sent successfully")
+        except Exception as e:
+            print("Failed to send email:", e)
 
 class StartupDelete(generics.DestroyAPIView):
     serializer_class = StartupSerializer
@@ -40,7 +43,6 @@ class StartupDelete(generics.DestroyAPIView):
 
 class InvestorCreate(generics.ListCreateAPIView):
     serializer_class = InvestorSerializer
-
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
@@ -48,12 +50,17 @@ class InvestorCreate(generics.ListCreateAPIView):
         return Investor.objects.filter(owner=user)
 
     def perform_create(self, serializer):
-        print("Received Request Data:", self.request.data)
-        if serializer.is_valid():
-            serializer.save(owner=self.request.user)
-        else:
-            print("Invalid data received: ", self.request.data)
-            print(serializer.errors)
+        investor = serializer.save(owner=self.request.user)
+        try:
+            send_mail(
+                'New Investor Created',
+                'An investor has been added to your profile.',
+                settings.DEFAULT_FROM_EMAIL,
+                [self.request.user.email],  # sending email to the user's email
+            )
+            print("Email sent successfully")
+        except Exception as e:
+            print("Failed to send email:", e)
 
 class InvestorDelete(generics.DestroyAPIView):
     serializer_class = InvestorSerializer
@@ -62,12 +69,4 @@ class InvestorDelete(generics.DestroyAPIView):
     def get_queryset(self):
         user = self.request.user
         return Investor.objects.filter(owner=user)
-    
-# view to create a startup
-
-# view to get a startup
-
-# view to create an investor
-
-# view to get an investor
 
