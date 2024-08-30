@@ -1,0 +1,228 @@
+INVESTOR MAPPING VALUES 
+
+
+
+
+
+'industry ' same ok, 'type_of_business' same ok, 'type_of_investment' same ok , sdg same ok, capital same ok, impact_value same ok, lingue same ok, stage same ok, team_values same ok, motives same ok, expertice same ok, founds use (for the startup in the investor expertice ) ok,
+
+industry:  ok
+
+Real estate
+Nature protection
+Woman Empowerment
+Poverty alleviation
+Greentech
+Smart City
+Mobility
+Energy
+Education
+Health
+Sports
+Cosmetics
+Financial & Insurance
+Food
+Legal
+Rental & Repair
+Transportation & storage
+Information & Communication
+Arts, entertainment & recreation
+Support services
+Technical services
+Environmental Consulting
+Other
+
+
+type_of business:  ok
+
+B2B
+B2C
+Consultancy
+All
+
+
+languages:  ok
+
+English
+german
+French
+Italliano
+Spanish
+Chinese
+Arabic
+
+
+team values:  ok
+
+Sustainability
+Customer Orientation
+Efficiency
+Collaboration
+Common good
+Value-oriented
+Engagement
+Transparency
+Ethical Behavior
+Punctuality
+Quickness
+Ethics
+Integrity
+Openness to innovation
+Support and network
+Risk-taking
+Transparency
+Trust
+Long-term focus
+Social responsability
+Flexibility and adaptability
+Win-win-mentality
+
+
+stage:    ok
+
+Pre-Seed Phase
+Seed Stage
+Pre-Series A
+Series A
+Pre-Series B
+Series B
+Series C
+Bridge
+B2B
+B2C
+Consultancy
+All
+
+
+expertice:  ok
+
+Accounting / Bookkeeping
+Controlling
+Fundraising
+HR / Personnel
+Legal / Legal Affairs
+Logistics / Logistics
+Management
+Marketing
+PR
+Procurement / Purchasing
+Product Development
+Production
+Sales / Distribution
+Strategy
+Technology
+
+
+
+market:    ok
+
+Europe
+National
+English market
+french market
+Asia
+Amerika
+african country selection
+
+
+type of investment:    ok
+
+Equity
+Loan
+Convertible Loan
+
+
+exit strategy:
+clear and quick exit
+A long-term exit
+no exit
+
+team_values:
+
+extravagant  
+Romantic  
+Security
+activating  
+Charming  
+Clarity
+risk
+Friendly
+Functional
+daring
+Soft  
+Diligent
+youthful  
+Cosy  
+Competence
+adventure  
+Health  
+Disciplined
+festive  
+Gentle  
+Powerful
+vivid  
+Security  
+Force
+joy  
+Down to earth  
+Superior
+indulgence  
+Trust  
+Status
+open-minded  
+Reliable  
+Exclusive
+Openness  
+Traditional  
+Responsibility
+
+VCs:
+Business Angel
+Foundation
+Family Office
+
+
+
+
+
+startup da inserire su postman su /api/startup/ dopo aver autenticato l'utente
+
+questa startup crea un match con UrbanGrid Systems (investor)
+
+se si è autenticati con la mail corrispondente a questa startup se si va su /matcher/match/ si vedrà il macth corrispondente 
+{
+    "name": "Rumoza Analytics",
+    "code": "GI101",
+    "location": "Austin, TX",
+    "industry": "Woman Empowerment",
+    "founding_date": "2023-04-15",
+    "legal_form": "Corporation",
+    "type_of_business": "All",
+    "website": "https://greeninnovate.com",
+    "facebook": "https://facebook.com/greeninnovate",
+    "linkedin": "https://linkedin.com/company/greeninnovate",
+    "twitter": "https://twitter.com/greeninnovate",
+    "description": "Pioneering renewable energy solutions.",
+    "mission": "To empower sustainable living.",
+    "product_description": "Solar panels and wind turbines.",
+    "customer_problem": "Lack of affordable green energy options.",
+    "usp": "Low-cost, high-efficiency solar solutions.",
+    "capital": 29470.0, 
+    "stage": "Series B",
+    "target_investor_n": 4,
+    "use_of_funds": {"R&D": 40, "Marketing": 30, "Operations": 30} ,
+    "financial_tables": "Financial data here.",
+    "already_invested_n": 3,
+    "impact_value": 8.0,
+    "team_values": ["Ethical Behavior", "Social responsability", "Customer Orientation", "Risk-taking"],
+    "team_motives":["Status", "Diligent", "activating", "Romantic"],
+    "funding_experience": "Yes",
+    "team_languages": ["Chinese", "German", "French"],
+    "investor_expertise": ["Product Development", "Controlling", "Legal / Legal Affairs", "Technology", "Marketing", "Logistics / Logistics"],
+    "investor_expectations": ["has a big network"],
+    "exit_strategy": "IPO",
+    "type_of_investment": "Equity",
+    "market": "Global energy market.",
+    "sdg":{"SDG-15": "Life on Land", "SDG-8": "Decent Work and Economic Growth", "SDG-6": "Clean Water and Sanitation", "SDG-13": "Climate Action", "SDG-12": "Responsible Consumption and Production", "SDG-11": "Sustainable Cities and Communities", "SDG-2": "Zero Hunger", "SDG-7": "Affordable and Clean Energy"},
+    "user": 365
+}
