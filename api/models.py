@@ -93,6 +93,11 @@ class InvestorPortfolio(models.Model):
     
 class Investor(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    # to be moved to details
+    location = models.CharField(max_length=255)
+    category = models.CharField(max_length=255)
+    description = models.TextField()
+    #####
     preferences = models.OneToOneField(InvestorPreferences, on_delete=models.CASCADE, related_name='investor_preferences', null=True, blank=True)
     portfolio =  models.OneToOneField(InvestorPortfolio, on_delete=models.CASCADE, related_name='investor_porfolio', null=True, blank=True)
 
