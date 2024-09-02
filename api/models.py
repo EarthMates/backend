@@ -45,7 +45,7 @@ class StartupTeam(models.Model):
 class StartupMarket(models.Model):
     startup = models.OneToOneField('Startup', on_delete=models.CASCADE, related_name='market_section')
     target_market = models.TextField()
-    number_of_competitors = models.PositiveIntegerField()
+    number_of_competitors = models.CharField(max_length=100)
     market_size = models.DecimalField(max_digits=20, decimal_places=2)
     CAGR = models.DecimalField(max_digits=5, decimal_places=2)  # Compound Annual Growth Rate
     scalability = models.TextField()
