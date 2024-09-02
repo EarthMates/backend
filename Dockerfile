@@ -1,23 +1,20 @@
-# pull official base image
-FROM python:3.12.0-slim-bookworm
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
 
-# set work directory
-WORKDIR /usr/src/app
+# Set the working directory in the container
+WORKDIR /app
 
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Copy the current directory contents into the container at /app
+COPY . /app/
 
-# install dependencies
-RUN pip install --upgrade pip
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Create a user with UID 1000 and GID 1000
-RUN groupadd -g 1000 appgroup && \
-    useradd -r -u 1000 -g appgroup appuser
-# Switch to this user
-USER 1000:1000
+# Make port 8000 available to the world outside this container
+EXPOSE 8000
 
-# copy project
-COPY . .
+# Define environment variable
+ENV PYTHONUNBUFFERED=1
+
+# Run the Django development server
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
