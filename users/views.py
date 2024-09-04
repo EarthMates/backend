@@ -21,6 +21,10 @@ from .models import CustomUser
 from rest_framework.views import APIView
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
+from django.contrib.auth import logout
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 
 
@@ -62,14 +66,16 @@ class RegisterView(generics.CreateAPIView):
 
         return response
 
-@api_view(['GET'])
-def getRoutes(request):
-    routes = [
-        '/users/token/',
-        '/users/register/',
-        '/users/token/refresh/',
-    ]
-    return Response(routes)
+
+
+class CustomLogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        # Log out the user
+        logout(request)
+        # Return a JSON response confirming the logout
+        return Response({"detail": "Successfully logged out."})
 
 
 
