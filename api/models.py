@@ -61,6 +61,7 @@ class StartupMatchingPreferences(models.Model):
 
 class Startup(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    cover_photo = models.ImageField(upload_to='covers/', null=True, blank=True)
     details = models.OneToOneField(StartupDetails, on_delete=models.CASCADE, related_name='startup_details', null=True, blank=True)
     offerings = models.OneToOneField(StartupOffering, on_delete=models.CASCADE, related_name='startup_offerings', null=True, blank=True)
     financials = models.OneToOneField(StartupFinancials, on_delete=models.CASCADE, related_name='startup_financials', null=True, blank=True)
@@ -71,6 +72,11 @@ class Startup(models.Model):
 
     def __str__(self):
         return self.name
+    
+class InvestorDetails(models.Model):
+    location = models.CharField(max_length=255)
+    category = models.CharField(max_length=255)
+    description = models.TextField()
     
 class InvestorPreferences(models.Model):
     investor = models.OneToOneField('Investor', on_delete=models.CASCADE, related_name='preferences_section')
@@ -93,11 +99,8 @@ class InvestorPortfolio(models.Model):
     
 class Investor(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    # to be moved to details
-    location = models.CharField(max_length=255)
-    category = models.CharField(max_length=255)
-    description = models.TextField()
-    #####
+    cover_photo = models.ImageField(upload_to='covers/', null=True, blank=True)
+    details = models.OneToOneField(InvestorDetails, on_delete=models.CASCADE, related_name='investor_details', null=True, blank=True)
     preferences = models.OneToOneField(InvestorPreferences, on_delete=models.CASCADE, related_name='investor_preferences', null=True, blank=True)
     portfolio =  models.OneToOneField(InvestorPortfolio, on_delete=models.CASCADE, related_name='investor_porfolio', null=True, blank=True)
 
