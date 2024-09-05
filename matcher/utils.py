@@ -100,6 +100,7 @@ def run_startup_matcher(startup_name):
         else:
             match_score = match_score + 10
         matches.append({"investor": investor,"name": investor.name, "score": match_score})
+        print(f"Match with {investor} added")
 
     #Iterate over found matches 
     for match in matches:

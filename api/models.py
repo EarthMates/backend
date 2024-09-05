@@ -45,7 +45,7 @@ class StartupTeam(models.Model):
 class StartupMarket(models.Model):
     startup = models.OneToOneField('Startup', on_delete=models.CASCADE, related_name='market_section')
     target_market = models.TextField()
-    number_of_competitors = models.PositiveIntegerField()
+    number_of_competitors = models.CharField(max_length=100)
     market_size = models.DecimalField(max_digits=20, decimal_places=2)
     CAGR = models.DecimalField(max_digits=5, decimal_places=2)  # Compound Annual Growth Rate
     scalability = models.TextField()
@@ -93,6 +93,11 @@ class InvestorPortfolio(models.Model):
     
 class Investor(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    # to be moved to details
+    location = models.CharField(max_length=255)
+    category = models.CharField(max_length=255)
+    description = models.TextField()
+    #####
     preferences = models.OneToOneField(InvestorPreferences, on_delete=models.CASCADE, related_name='investor_preferences', null=True, blank=True)
     portfolio =  models.OneToOneField(InvestorPortfolio, on_delete=models.CASCADE, related_name='investor_porfolio', null=True, blank=True)
 

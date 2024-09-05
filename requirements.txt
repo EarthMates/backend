@@ -9,3 +9,6 @@ sqlparse
 psycopg2-binary
 django-environ
 tzdata
+gunicorn
+Pillow
+python-dotenv

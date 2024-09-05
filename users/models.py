@@ -46,6 +46,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     cover_photo = models.ImageField(upload_to='covers/', null=True, blank=True)
     startup = models.OneToOneField(Startup, on_delete=models.SET_NULL, null=True, blank=True, related_name='user_startup')
     investor = models.OneToOneField(Investor, on_delete=models.SET_NULL, null=True, blank=True, related_name='user_investor')
+    subscription_tier = models.CharField(max_length=25)
+    
     
 
     USERNAME_FIELD = 'email'
