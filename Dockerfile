@@ -1,20 +1,22 @@
 # Use an official Python runtime as a parent image
-FROM python:3.9-slim
+FROM python:3.9-slim-buster
 
-# Set the working directory in the container
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set the working directory in the container to /app
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app/
+# Add the current directory files (on your machine) to the container
+ADD . /app/
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-# Make port 8000 available to the world outside this container
+# Expose the port server is running on
 EXPOSE 8000
 
-# Define environment variable
-ENV PYTHONUNBUFFERED=1
-
-# Run the Django development server
+# Start the server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

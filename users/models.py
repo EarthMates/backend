@@ -43,7 +43,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_verified = models.BooleanField(default=False)
     last_login = models.DateTimeField(null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
-    cover_photo = models.ImageField(upload_to='covers/', null=True, blank=True)
     startup = models.OneToOneField(Startup, on_delete=models.SET_NULL, null=True, blank=True, related_name='user_startup')
     investor = models.OneToOneField(Investor, on_delete=models.SET_NULL, null=True, blank=True, related_name='user_investor')
     subscription_tier = models.CharField(max_length=25)

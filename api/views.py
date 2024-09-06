@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
 from django.http import JsonResponse
 from api.serializers import StartupSerializer, InvestorSerializer
 from rest_framework import generics
@@ -29,7 +30,8 @@ from .serializers import (
     StartupImpactSerializer, 
     StartupTeamSerializer, 
     StartupMarketSerializer, 
-    StartupMatchingPreferencesSerializer
+    StartupMatchingPreferencesSerializer,
+    StartupCoverPhotoUploadSerializer
 )
 
 class StartupRetrieveUpdateView(generics.RetrieveUpdateAPIView):
@@ -152,10 +154,30 @@ class StartupRetrieveByNameView(APIView):
         # Serialize the investor object
         serializer = StartupSerializer(startup)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class StartupCoverUploadView(APIView):
+    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]  # Enable multipart form data parsing
+
+    def patch(self, request, *args, **kwargs):
+        # Get the startup associated with the authenticated user
+        startup = request.user.startup
+        serializer = StartupCoverPhotoUploadSerializer(startup, data=request.data, partial=True)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 from .models import Investor, InvestorPreferences, InvestorPortfolio
-from .serializers import InvestorSerializer, InvestorPreferencesSerializer, InvestorPortfolioSerializer
+from .serializers import (
+    InvestorSerializer, 
+    InvestorDetailsSerializer, 
+    InvestorPreferencesSerializer, 
+    InvestorPortfolioSerializer,
+    InvestorCoverPhotoUploadSerializer
+)
 
 class InvestorRetrieveUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Investor.objects.all()
@@ -180,6 +202,17 @@ class InvestorCreateView(generics.CreateAPIView):
         user.investor = investor  
         user.save()
         run_investor_matcher(investor.name)
+
+class InvestorDetailsView(generics.RetrieveUpdateAPIView):
+    queryset = StartupDetails.objects.all()
+    serializer_class = InvestorDetailsSerializer
+
+    def perform_update(self, serializer):
+        super().perform_update(serializer)
+        run_investor_matcher(self.request.user.investor.name)
+
+    def get_object(self):
+        return self.request.user.investor.details
 
 class InvestorPreferencesView(generics.RetrieveUpdateAPIView):
     queryset = InvestorPreferences.objects.all()
@@ -222,3 +255,17 @@ class InvestorRetrieveByNameView(APIView):
         # Serialize the investor object
         serializer = InvestorSerializer(investor)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class InvestorCoverUploadView(APIView):
+    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]  # Enable multipart form data parsing
+
+    def patch(self, request, *args, **kwargs):
+        # Get the investor associated with the authenticated user
+        investor = request.user.investor
+        serializer = InvestorCoverPhotoUploadSerializer(investor, data=request.data, partial=True)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

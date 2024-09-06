@@ -4,11 +4,12 @@ django-cors-headers
 djangorestframework
 djangorestframework-simplejwt
 PyJWT
+Pillow
 pytz
 sqlparse
 psycopg2-binary
-django-environ
-tzdata
-gunicorn
-Pillow
 python-dotenv
+tzdata
+boto3
+django-storages
+gunicorn

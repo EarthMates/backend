@@ -61,6 +61,16 @@ class StartupMatchingPreferencesSerializer(serializers.ModelSerializer):
         model = StartupMatchingPreferences
         fields = '__all__'
 
+class StartupCoverPhotoUploadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Startup
+        fields = ['cover_photo']  # Only expose the cover_photo field
+
+class InvestorCoverPhotoUploadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Investor
+        fields = ['cover_photo']  # Only expose the cover_photo field
+
 class StartupSerializer(serializers.ModelSerializer):
     details = StartupDetailsSerializer()
     offerings = StartupOfferingSerializer()
@@ -171,7 +181,14 @@ class StartupSerializer(serializers.ModelSerializer):
 
         return instance
         
-from .models import Investor, InvestorPreferences, InvestorPortfolio
+from .models import Investor, InvestorDetails, InvestorPreferences, InvestorPortfolio
+
+class InvestorDetailsSerializer(serializers.ModelSerializer):
+    investor = serializers.PrimaryKeyRelatedField(read_only=True)  # Set to read-only
+
+    class Meta:
+        model = InvestorDetails
+        fields = '__all__'
 
 class InvestorPreferencesSerializer(serializers.ModelSerializer):
     investor = serializers.PrimaryKeyRelatedField(read_only=True)  # Set to read-only
@@ -188,6 +205,7 @@ class InvestorPortfolioSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class InvestorSerializer(serializers.ModelSerializer):
+    details = InvestorDetailsSerializer()
     preferences = InvestorPreferencesSerializer()
     portfolio = InvestorPortfolioSerializer()
 
@@ -196,10 +214,15 @@ class InvestorSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
+        details_data = validated_data.pop('details', None)
         preferences_data = validated_data.pop('preferences', None)
         portfolio_data = validated_data.pop('portfolio', None)
 
         investor = Investor.objects.create(**validated_data)
+
+        if details_data:
+            details = InvestorDetails.objects.create(investor=investor, **details_data)
+            investor.details = details
 
         if preferences_data:
             preferences = InvestorPreferences.objects.create(investor=investor, **preferences_data)
@@ -213,6 +236,12 @@ class InvestorSerializer(serializers.ModelSerializer):
         return investor
 
     def update(self, instance, validated_data):
+        if 'details' in validated_data:
+            details_data = validated_data.pop('details')
+            for attr, value in details_data.items():
+                setattr(instance.details, attr, value)
+            instance.details.save()
+
         if 'preferences' in validated_data:
             preferences_data = validated_data.pop('preferences')
             for attr, value in preferences_data.items():
