@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    "drf_stripe",
     # 'storages'
     # 'crispy_forms',
     # 'crispy_bootstrap5',
@@ -203,3 +204,10 @@ LOGIN_REDIRECT_URL = 'success'
 # settings for the templates ineritance 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+
+DRF_STRIPE = {
+    "STRIPE_API_SECRET": "my_stripe_api_key",
+    "STRIPE_WEBHOOK_SECRET": "my_stripe_webhook_key",
+    "FRONT_END_BASE_URL": "http://localhost:3000",
+}
