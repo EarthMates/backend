@@ -53,10 +53,15 @@ INSTALLED_APPS = [
     # 'crispy_forms',
     # 'crispy_bootstrap5',
 
+    # stripe:
+    'stripe',
+    
+
     # Project apps
     'api',
     'users',
     'matcher',
+    'payments',
 ]
 
 MIDDLEWARE = [
@@ -203,3 +208,8 @@ LOGIN_REDIRECT_URL = 'success'
 # settings for the templates ineritance 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+
+#stripe settings
+
+APPEND_SLASH = False
